@@ -1,0 +1,38 @@
+[
+  {
+    "service_type": "hotel8:pms",
+    "binary": "hotel8-pms",
+    "start_priority": 42,
+    "database_env_vars": ["HOTEL8_PMS_DATABASE_URL"]
+  },
+  {
+    "service_type": "hotel8:pos",
+    "binary": "hotel8-pos",
+    "start_priority": 42,
+    "database_env_vars": ["HOTEL8_POS_DATABASE_URL"]
+  },
+  {
+    "service_type": "hotel8:upsell",
+    "binary": "hotel8-upsell",
+    "start_priority": 42,
+    "database_env_vars": ["HOTEL8_UPSELL_DATABASE_URL"]
+  },
+  {
+    "service_type": "hotel8:distrib",
+    "binary": "hotel8-distrib",
+    "start_priority": 42,
+    "database_env_vars": ["HOTEL8_DISTRIB_DATABASE_URL"]
+  },
+  {
+    "service_type": "hotel8:meta",
+    "binary": "hotel8-meta",
+    "start_priority": 42,
+    "database_env_vars": ["HOTEL8_META_DATABASE_URL"]
+  },
+  {
+    "service_type": "hotel8:loyalty",
+    "binary": "hotel8-loyalty",
+    "start_priority": 42,
+    "database_env_vars": ["HOTEL8_LOYALTY_DATABASE_URL"]
+  }
+]
