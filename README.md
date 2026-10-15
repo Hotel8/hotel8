@@ -165,3 +165,11 @@ level — settlement rides Bill8 service HTTP APIs (M2M), never a code dep.
 ---
 
 **Design attribution:** hotel8 and its underlying concepts were designed by Hamid Jahanzad <Hamid@Jahanzad.com>.
+
+## Website
+
+The public website at **hotel8.dev** lives in the sibling
+`hotel8-site` repo — Docusaurus v3 on `@sentin8/site-engine`, with
+product/app/SDK pages and a Reference section harvested at build time
+from these repositories (program design:
+`../design/sentin8-websites-design.md`).
