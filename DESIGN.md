@@ -73,7 +73,7 @@ calls through the `hotel8::{svc}::client` crates.
 
 ```mermaid
 graph LR
-    subgraph dbh[(db hotel8)]
+    subgraph dbh["(db hotel8)"]
         SP[(pms)] --- SX[(pos)] --- SU[(upsell)] --- SD[(distrib)] --- SM[(meta)] --- SL[(loyalty)]
     end
     XPMS[hotel8:pms] --> SP
@@ -105,7 +105,7 @@ graph LR
         BOOT --> PJ[audit journal pusher → Sys]
         RTR[axum router] --> H[handlers]
         H -- "verify → require → begin → set context → explicit WHERE → execute → emit_tx → commit" --> POOL
-        CONSG[consumer task — SSE + ack] --> BUSX[(stream {svc-family})]
+        CONSG[consumer task — SSE + ack] --> BUSX["(stream {svc-family})"]
     end
 ```
 
@@ -129,7 +129,7 @@ sequenceDiagram
     APP->>S: POST /proxy/hotel8-{svc}/v1/... (session via BFF)
     S->>S: 1–4 verify bearer (issuer/sig/expiry/aud/type) + resolve tenant
     S->>S: 5 Shield require (declarative policies, live roles)
-    S->>DB: BEGIN; sentin8_set_tenant_context(env_id)
+    S->>DB: BEGIN, sentin8_set_tenant_context(env_id)
     S->>DB: DML (explicit WHERE env_id + property_id)
     S->>DB: INSERT {svc}.outbox (event) + {svc}.audit_journal
     S->>DB: COMMIT
@@ -156,19 +156,19 @@ shell adds `{svc}.outbox` + `{svc}.audit_journal` per service.
 
 ```mermaid
 erDiagram
-    PMS_PROPS[pms.properties] ||--o{ PMS_RES[pms.reservations] : books
-    PMS_RES ||--o{ PMS_FOLIO[pms.folios] : settles
-    PMS_PROPS ||--o{ PMS_INV[pms.inventory] : "sellable calendar"
-    PMS_RES ||--o{ POS_CHECKS[pos.checks] : "room-charge checks"
-    PMS_PROPS ||--o{ UP_OFFERS[upsell.offers] : "via bookings"
-    PMS_PROPS ||--o{ DI_MAPS[distrib.rate_plan_mappings] : "to channels"
-    PMS_PROPS ||--o{ ME_ADS[meta.rate_ads] : "derived for partners"
-    PMS_PROPS ||--o{ LO_MEMBERS[loyalty.members] : "loyalty_number link"
-    PMS_RES ||--o{ LO_EARN[loyalty.point_transactions] : "checked_out earns"
-    PMS_PROPS ||--o{ PMS_KIOSK[pms.kiosk_config] : "terminal config"
-    PMS_PROPS ||--o{ PMS_CORP_PM[pms.company_payment_methods] : credit
-    PMS_PROPS ||--o{ PMS_CORP_U[pms.company_users] : roster
-    PMS_PROPS ||--o{ PMS_GPM[pms.guest_payment_methods] : "guest tokens (ref)"
+    PMS_PROPS ||--o{ PMS_RES : books
+    PMS_RES ||--o{ PMS_FOLIO : settles
+    PMS_PROPS ||--o{ PMS_INV : "sellable calendar"
+    PMS_RES ||--o{ POS_CHECKS : "room-charge checks"
+    PMS_PROPS ||--o{ UP_OFFERS : "via bookings"
+    PMS_PROPS ||--o{ DI_MAPS : "to channels"
+    PMS_PROPS ||--o{ ME_ADS : "derived for partners"
+    PMS_PROPS ||--o{ LO_MEMBERS : "loyalty_number link"
+    PMS_RES ||--o{ LO_EARN : "checked_out earns"
+    PMS_PROPS ||--o{ PMS_KIOSK : "terminal config"
+    PMS_PROPS ||--o{ PMS_CORP_PM : credit
+    PMS_PROPS ||--o{ PMS_CORP_U : roster
+    PMS_PROPS ||--o{ PMS_GPM : "guest tokens (ref)"
 ```
 
 Cross-service *conceptual* references (POS check → PMS reservation, loyalty
