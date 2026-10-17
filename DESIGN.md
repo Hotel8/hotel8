@@ -1,4 +1,4 @@
-# DESIGN.md: hotel8 — Vertical Detailed Design
+# hotel8 — Vertical Detailed Design
 
 > Wire-level and architectural design of the whole hotel8 vertical. Per-service
 > detail lives in `services/{svc}/DESIGN.md`; per-app detail in

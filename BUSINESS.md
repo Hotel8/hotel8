@@ -1,4 +1,4 @@
-# BUSINESS.md: hotel8 — Business Requirements & Functionality
+# hotel8 — Business Requirements & Functionality
 
 > Audience: product owners, business analysts, and anyone evaluating what the
 > hotel8 vertical **does for the business**. For architecture read
