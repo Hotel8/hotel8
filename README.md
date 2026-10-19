@@ -1,11 +1,11 @@
-# README.md: hotel8 — Hospitality Vertical
+# README.md: hotel8 - Hospitality Vertical
 
 ## 1. Summary
 
 hotel8 is the hospitality vertical on the Sentin8 platform: six Rust services
-(PMS, POS, Upsell, Distrib, Meta, Loyalty) that together run a hotel — the
+(PMS, POS, Upsell, Distrib, Meta, Loyalty) that together run a hotel - the
 property system of record, food-and-beverage point of sale, offer engine,
-channel distribution, metasearch connectivity, and the loyalty program — and
+channel distribution, metasearch connectivity, and the loyalty program - and
 six Flutter applications (eBooking, eCorpBooking, eGuest, eKiosk, ePMS, ePOS)
 that put the same domain model in front of guests, corporate travel managers,
 kiosk terminals, hotel staff, and restaurant staff. Every service shares one
@@ -21,13 +21,13 @@ time (runtime registration via `vertical-registry.json` +
 
 ```mermaid
 graph TD
-    subgraph apps["Flutter apps (BFF-only — tokens never reach the client)"]
-        EB[eBooking — direct booking]
-        ECR[eCorpBooking — corporate portal]
-        EG[eGuest — in-stay companion]
-        EK[eKiosk — lobby self-service]
-        EP[ePMS — staff console]
-        EPX[ePOS — restaurant terminal]
+    subgraph apps["Flutter apps (BFF-only - tokens never reach the client)"]
+        EB[eBooking - direct booking]
+        ECR[eCorpBooking - corporate portal]
+        EG[eGuest - in-stay companion]
+        EK[eKiosk - lobby self-service]
+        EP[ePMS - staff console]
+        EPX[ePOS - restaurant terminal]
     end
     BFFP[Sentin8:BFF /proxy/*]
     EB --> BFFP
@@ -44,7 +44,7 @@ graph TD
     BFFP --> LOY[hotel8:Loyalty]
     DIS -. "OTA/GDS ARI" .-> CH[External channels]
     MET -. "rate feeds" .-> META[Metasearch platforms]
-    PMS --> BUSP[(Sentin8:Bus — event families)]
+    PMS --> BUSP[(Sentin8:Bus - event families)]
     POS --> BUSP
     UPS --> BUSP
     DIS --> BUSP
@@ -59,7 +59,7 @@ terminal, a loyalty engine, a channel manager, and a booking engine are
 usually five vendors, five databases, and five integration contracts. hotel8
 collapses that stack onto the platform's single identity plane (Sentin8:Auth),
 one policy engine (Shield), one event bus (Sentin8:Bus), and one
-tenant-isolated database — so the reservation a guest makes in eBooking is
+tenant-isolated database - so the reservation a guest makes in eBooking is
 the same row the front desk checks in, the restaurant posts a room charge
 against, the loyalty engine awards points for, and the channels see within
 seconds.
@@ -114,7 +114,7 @@ hotel8/
 ├── sdk/rust/hotel8/           # namespace facade: use hotel8::{svc}::{kind}
 ├── services/{pms,pos,upsell,distrib,meta,loyalty}/
 │   ├── src/                   # one Rust service per directory (shell boot)
-│   ├── sql/init.sql           # THE schema (single file — no migration files)
+│   ├── sql/init.sql           # THE schema (single file - no migration files)
 │   └── {README,DESIGN,BUSINESS}.md
 ├── apps/{ebooking,ecorpbooking,eguest,ekiosk,epms,epos}/
 │   ├── lib/                   # Flutter app
@@ -148,7 +148,7 @@ via the captain wrappers. See `DESIGN.md` §9 for the test strategy and
 hotel8 depends on **sentin8** via relative path dependencies through the
 namespace facade (`sdk/rust/hotel8` → `sentin8 = "0.1"` with the `.cargo`
 patch shim). hotel8 does not depend on bank8, bill8, or health8 at the Rust
-level — settlement rides Bill8 service HTTP APIs (M2M), never a code dep.
+level - settlement rides Bill8 service HTTP APIs (M2M), never a code dep.
 
 ## 8. Documentation Map
 
@@ -169,7 +169,7 @@ level — settlement rides Bill8 service HTTP APIs (M2M), never a code dep.
 ## Website
 
 The public website at **hotel8.dev** lives in the sibling
-`hotel8-site` repo — Docusaurus v3 on `@sentin8/site-engine`, with
+`hotel8-site` repo - Docusaurus v3 on `@sentin8/site-engine`, with
 product/app/SDK pages and a Reference section harvested at build time
 from these repositories (program design:
 `../design/sentin8-websites-design.md`).

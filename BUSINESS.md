@@ -1,4 +1,4 @@
-# hotel8 — Business Requirements & Functionality
+# hotel8 - Business Requirements & Functionality
 
 > Audience: product owners, business analysts, and anyone evaluating what the
 > hotel8 vertical **does for the business**. For architecture read
@@ -17,7 +17,7 @@
   identity plane and one event stream, not five vendor systems stitched
   nightly.
 - Give the operator an admin console (Dash-rendered RFW pages) and staff/guest
-  apps that share the same authorized domain model — no per-app copies of
+  apps that share the same authorized domain model - no per-app copies of
   business rules.
 
 ## 2. Business Scope (What the Vertical Provides)
@@ -29,7 +29,7 @@
 | Corporate booking channel | eCorpBooking (app) | Negotiated-rate portal with policy-guarded search, traveler rosters, credit methods (post-pay / bill-to-company), multi-company switcher, SSO or first-admin provisioning |
 | In-stay guest services | eGuest (app) | Pre-registration, mobile check-in, room service ordering, upsell accepts, digital key, stay feedback, rewards + saved payment methods |
 | Self-service lobby | eKiosk (app) | Check-in/out with add-on sales and payment, express walk-in booking, staff unlock; entirely config-driven from the PMS kiosk-config |
-| Staff console | ePMS (app) | Reservations, front desk, housekeeping, cashiering, rates, blocks, events, end-of-day — with property switching and re-auth on sensitive operations |
+| Staff console | ePMS (app) | Reservations, front desk, housekeeping, cashiering, rates, blocks, events, end-of-day - with property switching and re-auth on sensitive operations |
 | Restaurant & room service | hotel8:POS + ePOS (app) | Table service, menus with modifiers, splitting/merging transfers, manager approvals, room charges into the PMS folio, offline queue, guest room-service for eGuest |
 | Revenue growth | hotel8:Upsell | Rules-as-data offers (upgrades, early check-in, amenities) generated on booking events, A/B tested, guest one-tap accept with bill8 payment |
 | Channel distribution | hotel8:Distrib | OTA/GDS/wholesaler onboarding, mappings, per-channel markup, ARI push, reservation intake from channels |
@@ -54,10 +54,10 @@
 | Area | Capability | Business rule |
 |---|---|---|
 | Booking | Reservation creation | Availability-gated per room type; the system generates the confirmation number; channel/walk-in origins carry source codes |
-| Booking | Walk-in / express | Kiosk express booking never oversells — refuses when the window's availability is below the request |
+| Booking | Walk-in / express | Kiosk express booking never oversells - refuses when the window's availability is below the request |
 | Stay | Check-in/out | State machine only (CONFIRMED→CHECKED_IN→CHECKED_OUT); reversal is a logged staff op; folio settles at check-out |
 | Money | Folio | Charges and payments post to the same folio; room charges move through bill8 as immutable charges + ledger postings; disputes are tracked, never edited |
-| Dining | Room charge | POST's into the guest's folio — no manual reconciliation between restaurant and front desk |
+| Dining | Room charge | POST's into the guest's folio - no manual reconciliation between restaurant and front desk |
 | Dining | Offline resilience | Terminal queues operations with client idempotency keys and replays; revenue is never lost to a network blip |
 | Revenue | Upsell | One live offer per booking+rule; declines remembered per stay; payment state only reflects actual bill8 results |
 | Retention | Loyalty | Points earn on checked-out stays; redemption possible at POS (restaurant) not just the hotel; catalog is tenant-authored |
@@ -70,11 +70,11 @@
 
 ## 4. Business Events
 
-**PMS emits** the vertical's core facts — reservation lifecycle
+**PMS emits** the vertical's core facts - reservation lifecycle
 (created/updated/cancelled/checked_in/checked_out/split), folio postings and
 generation, inventory updates, housekeeping status, keys issued, kiosk-config
 and corporate changes (`company:method_updated`, `company:user_bound`,
-`company:admin_provisioned`) — consumed directly by the services that care:
+`company:admin_provisioned`) - consumed directly by the services that care:
 
 | Consumer | On PMS event | Business reaction |
 |---|---|---|
@@ -98,13 +98,13 @@ consumers.
    vertical service computes or stores balances.
 3. Guest-facing operations never see staff data: guest routes are
    session-scope-gated and holder-scoped (their reservation id, their folio).
-4. Corporate credit only surfaces when approved — a pending/rejected method
+4. Corporate credit only surfaces when approved - a pending/rejected method
    never appears in checkout.
 5. Availability math is shared: the same sell-limit formula decides what a
    channel, the website, the kiosk, and the front desk can sell.
 6. Every guest-visible amount is the property currency; conversions are not
    computed in the vertical.
-7. Nothing is deleted that money or audit touched — voids, cancels and
+7. Nothing is deleted that money or audit touched - voids, cancels and
    reversals are state transitions with journal entries.
 
 ## 6. Target-User Roles & Use Cases
@@ -117,7 +117,7 @@ consumers.
 | Front-desk agent | ePMS, eKiosk | Check-in walk-ups, room moves, folio settlement, EOD |
 | F&B staff | ePOS | Open tables, routes orders to stations, settle incl. room charge |
 | Revenue manager | Dash (RFW admin) | Rates, package/upsell rules, channel mappings, loyalty catalog |
-| Hotel sales | Dash — PMS Corporate admin page | Approve credit methods, bind company users, link negotiated rates |
+| Hotel sales | Dash - PMS Corporate admin page | Approve credit methods, bind company users, link negotiated rates |
 | IT operator | Sentin8 platform tools | Enroll vertical, monitor captain fleet, replay DLQ |
 
 ## 7. KPIs / Success Criteria
@@ -150,7 +150,7 @@ consumers.
 ## 9. Acceptance Criteria
 
 1. A guest can book, check in via kiosk or phone, charge a restaurant meal to
-   the room, earn and redeem loyalty points, and check out — without a staff
+   the room, earn and redeem loyalty points, and check out - without a staff
    member touching the same data twice.
 2. A change to availability at the desk is reflected on channels and
    metasearch without a human export step.
@@ -161,19 +161,19 @@ consumers.
 5. Any terminal can lose its network mid-service and still settle the shift.
 6. The admin console renders live data and accepts edits for every domain
    page it shows (no static placeholders).
-7. All authorization is policy-based (Shield) with live role resolution —
+7. All authorization is policy-based (Shield) with live role resolution -
    a role change takes effect on the next request, not the next login.
 
 ## 10. Open Business Questions
 
 - The auto-link between an anonymous eBooking reservation and an eGuest
-  sign-in (which journey owns the "claim your booking" moment) —
+  sign-in (which journey owns the "claim your booking" moment) -
   `BACKLOG.md` APP-EGS-1.
 - Corporate-rate display priority when both public and negotiated rates fit
-  the stay (revenue-management decision) — recorded in `DESIGN.md` §10 of
+  the stay (revenue-management decision) - recorded in `DESIGN.md` §10 of
   eCorpBooking.
 - Whether loyalty earning should also trigger on folio settlement amounts
-  (currently stay-completion based) — pending program-economics decision.
+  (currently stay-completion based) - pending program-economics decision.
 
 ---
 
