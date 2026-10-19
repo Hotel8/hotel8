@@ -127,7 +127,7 @@ sequenceDiagram
     participant BUS as Sentin8:Bus
     participant SYS as Sentin8:Sys (audit)
     APP->>S: POST /proxy/hotel8-{svc}/v1/... (session via BFF)
-    S->>S: 1–4 verify bearer (issuer/sig/expiry/aud/type) + resolve tenant
+    S->>S: 1-4 verify bearer (issuer/sig/expiry/aud/type) + resolve tenant
     S->>S: 5 Shield require (declarative policies, live roles)
     S->>DB: BEGIN, sentin8_set_tenant_context(env_id)
     S->>DB: DML (explicit WHERE env_id + property_id)
@@ -336,7 +336,7 @@ dev reset): `design/sentin8-repository-split-design.md` §4.5.2.
 | Unit (DB-free) | each service | pure decision math (availability, pricing, state machines) |
 | DB-backed integration | `services/pms/tests/db_create_ops.rs` (pattern for all) | typed date/enum/numeric binds + RLS roundtrips against real `pms.*` tables; DSN-gated (`SENTIN8_DB_TESTS=1`, `HOTEL8_PMS_TEST_DATABASE_URL`), skipped silently without a live DSN |
 | Handler policy tests | each service `tests/` | scope-mirror sets vs gates (drift fails the suite) |
-| Browser E2E | `e2e-ts/tests/ui/` + `tests/protocol/` | human-path flows through Dash/app surfaces and the BFF proxy; suites 1–20 + protocol 21–28 |
+| Browser E2E | `e2e-ts/tests/ui/` + `tests/protocol/` | human-path flows through Dash/app surfaces and the BFF proxy; suites 1-20 + protocol 21-28 |
 | CI | `.github/workflows/ci.yml` | build (`-D warnings`), tests (postgres+valkey services), per-app analyze, e2e (needs live platform secrets) |
 
 Deliberately not tested here (platform-owned): shell boot, TLS handshake,
@@ -347,7 +347,7 @@ Bus durability, JWKS rotation - these live in the platform's own suites.
 - eGuest auto-link-on-sign-in (reservation↔guest binding UX handoff from
   eBooking) - surface exists (`link-guest`), flow decision open (BACKLOG
   APP-EGS-1).
-- E2E suites 1–20 + protocol green runs need a live platform boot; CI wiring
+- E2E suites 1-20 + protocol green runs need a live platform boot; CI wiring
   is in place but unexecuted (BACKLOG E2E-1..4).
 - MemBus adoption: no current hotel8 workload justifies the fast plane; if a
   real-time need lands (e.g. live table-status boards), the two-plane split
