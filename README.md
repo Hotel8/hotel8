@@ -1,5 +1,7 @@
 # README.md: hotel8 - Hospitality Vertical
 
+> Secure Post-Quantum-Safe Hospitality Platform That Heals and Scales Itself.
+
 ## 1. Summary
 
 hotel8 is the hospitality vertical on the Sentin8 platform: six Rust services

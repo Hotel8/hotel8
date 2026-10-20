@@ -1,5 +1,7 @@
 # hotel8 - Vertical Detailed Design
 
+> Secure Post-Quantum-Safe Hospitality Platform That Heals and Scales Itself.
+
 > Wire-level and architectural design of the whole hotel8 vertical. Per-service
 > detail lives in `services/{svc}/DESIGN.md`; per-app detail in
 > `apps/{app}/DESIGN.md`. This document covers the cross-service construction:

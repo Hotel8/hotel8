@@ -1,5 +1,7 @@
 # hotel8 - Business Requirements & Functionality
 
+> Secure Post-Quantum-Safe Hospitality Platform That Heals and Scales Itself.
+
 > Audience: product owners, business analysts, and anyone evaluating what the
 > hotel8 vertical **does for the business**. For architecture read
 > `README.md`; for wire-level detail read `DESIGN.md`. Per-service and
