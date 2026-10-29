@@ -27,7 +27,7 @@ stamp_env = SENTIN8_BUILD_PROFILE=$(if $(RELEASE),release,debug) SENTIN8_GIT_SHA
 SERVICES := pms pos distrib loyalty upsell meta
 APPS := ebooking ecorpbooking eguest ekiosk epms epos
 
-.PHONY: help build build-sdk build-services test status enroll start stop
+.PHONY: help build build-sdk build-services clean test status enroll start stop
 
 help: ## Show this help
 	@echo "hotel8/ vertical group"
@@ -47,6 +47,16 @@ build-services: build-sdk ## Build every hotel8 service repo
 test: ## Run the SDK facade tests + per-service suites
 	@cd hotel8-sdk && $(call stamp_env,hotel8-sdk) $(CARGO) test
 	@for s in $(SERVICES); do (cd hotel8-$$s && $(call stamp_env,hotel8-$$s) $(CARGO) test) || true; done
+
+# clean — every child repo's own clean (cargo/flutter target/ + their
+# local .run .run/logs .tmp). Tree-level .run/.tmp are tree-root-owned;
+# this group's clean leaves them alone (the ROOT `make clean` owns them).
+clean: ## Clean every child repo (target/, build artifacts, local .run/.tmp)
+	@for d in $$(ls -d hotel8-*/ 2>/dev/null); do \
+		[ -f "$$d/Makefile" ] || continue; \
+		echo "==> clean: $$d"; \
+		$(MAKE) --no-print-directory -C "$$d" clean || exit 1; \
+	done
 
 test-openapi: ## Run every hotel8 drift-guard test (OAPEC §4.8 — router↔spec sweep)
 	@for d in hotel8-*/; do \
