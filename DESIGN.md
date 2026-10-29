@@ -320,7 +320,7 @@ flowchart TD
 9. No custom global allocator; no `unsafe` in domain code; no secrets in
    application tables.
 
-## 8.1 Fleet-run scope (group operations, STARTSCOPE-1)
+## 8.1 Fleet-run scope (group operations,)
 
 The group Makefile's `make start` boots ONLY the platform base
 (`sentin8:acme, sentin8:auth, sentin8:proxy, sentin8:bus, sentin8:sys,
