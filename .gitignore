@@ -10,3 +10,6 @@
 *.swp
 .idea/
 .vscode/
+
+# Local org-repo clone (never commit)
+/.github/
